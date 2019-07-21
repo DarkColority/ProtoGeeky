@@ -1,14 +1,14 @@
-﻿using Geeky.Web.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace Geeky.Web.Data
 {
+    
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Entities;
 
-
-public class Repository
+    public class Repository : IRepository
     {
         private readonly DataContext context;
 

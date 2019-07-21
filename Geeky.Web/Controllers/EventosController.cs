@@ -12,29 +12,28 @@ namespace Geeky.Web.Controllers
 {
     public class EventosController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IRepository repository;
 
-        public EventosController(DataContext context)
+        public EventosController(IRepository repository)
         {
-            _context = context;
+            this.repository = repository;
         }
 
         // GET: Eventos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Eventos.ToListAsync());
+            return View(this.repository.GetEventos());
         }
 
         // GET: Eventos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var evento = this.repository.GetEvento(id.Value);
             if (evento == null)
             {
                 return NotFound();
@@ -50,30 +49,29 @@ namespace Geeky.Web.Controllers
         }
 
         // POST: Eventos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Direccion,Tematica")] Evento evento)
+        public async Task<IActionResult> Create(Evento evento)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(evento);
-                await _context.SaveChangesAsync();
+               this.repository.AddEvento(evento);
+                await this.repository.SaveAllAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(evento);
         }
 
         // GET: Eventos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.FindAsync(id);
+            var evento = this.repository.GetEvento(id.Value);
             if (evento == null)
             {
                 return NotFound();
@@ -82,27 +80,22 @@ namespace Geeky.Web.Controllers
         }
 
         // POST: Eventos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Direccion,Tematica")] Evento evento)
+        public async Task<IActionResult> Edit(Evento evento)
         {
-            if (id != evento.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(evento);
-                    await _context.SaveChangesAsync();
+                    this.repository.UpdateEvento(evento);
+                    await this.repository.SaveAllAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventoExists(evento.Id))
+                    if (!this.repository.EventoExists(evento.Id))
                     {
                         return NotFound();
                     }
@@ -117,15 +110,14 @@ namespace Geeky.Web.Controllers
         }
 
         // GET: Eventos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var evento = await _context.Eventos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var evento = this.repository.GetEvento(id.Value);
             if (evento == null)
             {
                 return NotFound();
@@ -139,15 +131,11 @@ namespace Geeky.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var evento = await _context.Eventos.FindAsync(id);
-            _context.Eventos.Remove(evento);
-            await _context.SaveChangesAsync();
+            var evento = this.repository.GetEvento(id);
+            this.repository.RemoveEvento(evento);
+            await this.repository.SaveAllAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EventoExists(int id)
-        {
-            return _context.Eventos.Any(e => e.Id == id);
-        }
     }
 }
