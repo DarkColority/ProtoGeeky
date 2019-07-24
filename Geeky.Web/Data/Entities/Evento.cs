@@ -24,7 +24,8 @@ using System.ComponentModel.DataAnnotations;
         [Required]
         public string Tematica { get; set; }
 
+        [Required]
+        public string Descripcion { get; set; }
 
-       
     }
 }

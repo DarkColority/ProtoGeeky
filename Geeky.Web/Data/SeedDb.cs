@@ -25,20 +25,20 @@
 
             if (!this.context.Eventos.Any())
             {
-                this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime");
+                this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime", "Es un evento muy chido");
 
                 await this.context.SaveChangesAsync();
             }
         }
 
-        private void AddEvent(string name, string direccion, string tematica)
+        private void AddEvent(string name, string direccion, string tematica, string descripcion)
         {
             this.context.Eventos.Add(new Evento
             {
                 Nombre = name,
                 Direccion = direccion,
                 Tematica = tematica,
-                
+                Descripcion = descripcion
             });
         }
     }
