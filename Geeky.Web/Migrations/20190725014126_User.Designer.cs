@@ -4,14 +4,16 @@ using Geeky.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Geeky.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190725014126_User")]
+    partial class User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,21 +39,23 @@ namespace Geeky.Web.Migrations
                     b.Property<string>("Tematica")
                         .IsRequired();
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("userId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("Eventos");
                 });
 
-            modelBuilder.Entity("Geeky.Web.Data.Entities.User", b =>
+            modelBuilder.Entity("Geeky.Web.Data.Entities.user", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("Apellido");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -61,13 +65,11 @@ namespace Geeky.Web.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("LastName");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Nombre");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -213,9 +215,9 @@ namespace Geeky.Web.Migrations
 
             modelBuilder.Entity("Geeky.Web.Data.Entities.Evento", b =>
                 {
-                    b.HasOne("Geeky.Web.Data.Entities.User", "User")
+                    b.HasOne("Geeky.Web.Data.Entities.user", "user")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("userId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -228,7 +230,7 @@ namespace Geeky.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Geeky.Web.Data.Entities.User")
+                    b.HasOne("Geeky.Web.Data.Entities.user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -236,7 +238,7 @@ namespace Geeky.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Geeky.Web.Data.Entities.User")
+                    b.HasOne("Geeky.Web.Data.Entities.user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -249,7 +251,7 @@ namespace Geeky.Web.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Geeky.Web.Data.Entities.User")
+                    b.HasOne("Geeky.Web.Data.Entities.user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -257,7 +259,7 @@ namespace Geeky.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Geeky.Web.Data.Entities.User")
+                    b.HasOne("Geeky.Web.Data.Entities.user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

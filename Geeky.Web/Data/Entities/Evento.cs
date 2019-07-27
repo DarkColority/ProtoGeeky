@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Geeky.Web.Data.Entities { 
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿namespace Geeky.Web.Data.Entities
+{
+    using System;
+    using System.ComponentModel.DataAnnotations;
 
 
-    public class Evento
+    public class Evento : IEntity
     {
         public int Id { get; set; }
 
@@ -18,7 +14,7 @@ using System.ComponentModel.DataAnnotations;
 
 
         [Required]
-        [Display(Name = "Dirección")]   
+        [Display(Name = "Dirección")]
         public string Direccion { get; set; }
 
         [Required]
@@ -27,5 +23,8 @@ using System.ComponentModel.DataAnnotations;
         [Required]
         public string Descripcion { get; set; }
 
+
+        public User User { get; set; }
+        
     }
 }

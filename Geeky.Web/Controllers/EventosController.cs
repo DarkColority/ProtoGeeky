@@ -1,39 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Geeky.Web.Data;
-using Geeky.Web.Data.Entities;
-
-namespace Geeky.Web.Controllers
+﻿namespace Geeky.Web.Controllers
 {
+    using System.Threading.Tasks;
+    using Data;
+    using Data.Entities;
+    using Helpers;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
     public class EventosController : Controller
     {
-        private readonly IRepository repository;
+        private readonly IEventRepository eventRepository;
+        private readonly IUserHelper userHelper;
 
-        public EventosController(IRepository repository)
+        public EventosController(IEventRepository eventRepository, IUserHelper userHelper)
         {
-            this.repository = repository;
+            this.eventRepository = eventRepository;
+            this.userHelper = userHelper;
         }
 
-        // GET: Eventos
+        // GET: Products
         public IActionResult Index()
         {
-            return View(this.repository.GetEventos());
+            return View(this.eventRepository.GetAll());
         }
 
-        // GET: Eventos/Details/5
-        public IActionResult Details(int? id)
+        // GET: Products/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var evento = this.repository.GetEvento(id.Value);
+            var evento = await this.eventRepository.GetByIdAsync(id.Value);
             if (evento == null)
             {
                 return NotFound();
@@ -42,60 +41,61 @@ namespace Geeky.Web.Controllers
             return View(evento);
         }
 
-        // GET: Eventos/Create
+        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Eventos/Create
-       
+        // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Evento evento)
         {
             if (ModelState.IsValid)
             {
-               this.repository.AddEvento(evento);
-                await this.repository.SaveAllAsync();
+                // TODO: Pending to change to: this.User.Identity.Name
+                evento.User = await this.userHelper.GetUserByEmailAsync("juantorom@gmail.com");
+                await this.eventRepository.CreateAsync(evento);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(evento);
         }
 
-        // GET: Eventos/Edit/5
-        public IActionResult Edit(int? id)
+        // GET: Products/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var evento = this.repository.GetEvento(id.Value);
+            var evento = await this.eventRepository.GetByIdAsync(id.Value);
             if (evento == null)
             {
                 return NotFound();
             }
+
             return View(evento);
         }
 
-        // POST: Eventos/Edit/5
-       
+        // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Evento evento)
         {
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    this.repository.UpdateEvento(evento);
-                    await this.repository.SaveAllAsync();
+                    // TODO: Pending to change to: this.User.Identity.Name
+                    evento.User = await this.userHelper.GetUserByEmailAsync("juantorom@gmail.com");
+                    await this.eventRepository.UpdateAsync(evento);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.repository.EventoExists(evento.Id))
+                    if (!await this.eventRepository.ExistAsync(evento.Id))
                     {
                         return NotFound();
                     }
@@ -106,18 +106,19 @@ namespace Geeky.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(evento);
         }
 
-        // GET: Eventos/Delete/5
-        public IActionResult Delete(int? id)
+        // GET: Products/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var evento = this.repository.GetEvento(id.Value);
+            var evento = await this.eventRepository.GetByIdAsync(id.Value);
             if (evento == null)
             {
                 return NotFound();
@@ -126,16 +127,15 @@ namespace Geeky.Web.Controllers
             return View(evento);
         }
 
-        // POST: Eventos/Delete/5
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var evento = this.repository.GetEvento(id);
-            this.repository.RemoveEvento(evento);
-            await this.repository.SaveAllAsync();
+            var evento = await this.eventRepository.GetByIdAsync(id);
+            await this.eventRepository.DeleteAsync(evento);
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
+
