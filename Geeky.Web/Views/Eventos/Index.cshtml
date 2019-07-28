@@ -47,6 +47,13 @@
                         @Html.DisplayFor(modelItem => item.Descripcion)
                     </td>
                     <td>
+                        @if (!string.IsNullOrEmpty(item.ImageURL))
+                        {
+                            <img src="@Url.Content(item.ImageURL)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                        }
+
+                    </td>
+                    <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

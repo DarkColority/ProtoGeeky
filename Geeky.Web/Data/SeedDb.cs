@@ -46,13 +46,13 @@
             }
             if (!this.context.Eventos.Any())
             {
-                this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime", "Es un evento muy chido", user);
+                this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime", "Es un evento muy chido","~/img1", user);
 
                 await this.context.SaveChangesAsync();
             }
         }
 
-        private void AddEvent(string name, string direccion, string tematica, string descripcion, User user)
+        private void AddEvent(string name, string direccion, string tematica, string descripcion, string imagen, User user)
         {
             this.context.Eventos.Add(new Evento
             {
@@ -60,6 +60,7 @@
                 Direccion = direccion,
                 Tematica = tematica,
                 Descripcion = descripcion,
+                ImageURL = imagen,
                 User = user
             });
         }

@@ -23,6 +23,9 @@
         [Required]
         public string Descripcion { get; set; }
 
+        [Display(Name = "Imagen")]
+        public string ImageURL { get; set; }
+
 
         public User User { get; set; }
         

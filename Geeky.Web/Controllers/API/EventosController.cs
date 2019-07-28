@@ -1,6 +1,4 @@
-﻿
-
-namespace Geeky.Web.Controllers.API
+﻿namespace Geeky.Web.Controllers.API
 {
     using Geeky.Web.Data;
     using Microsoft.AspNetCore.Mvc;
