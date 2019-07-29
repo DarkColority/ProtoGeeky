@@ -32,135 +32,148 @@
 <body>
 
     <div class="wrapper">
-        <div class="sidebar" data-image="assets/img/sidebar-5.jpg">
-            <!--
-            Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+        @if (this.User.IsInRole("Admin")) { 
+            <div class="sidebar" data-image="assets/img/sidebar-5.jpg" >
+                <!--
+                Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
-            Tip 2: you can also add an image using data-image tag
-        -->
-            <div class="sidebar-wrapper">
-                <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text">
-                        Geeky
-                    </a>
+                Tip 2: you can also add an image using data-image tag
+            -->
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                        <a href="http://www.creative-tim.com" class="simple-text">
+                            Geeky
+                        </a>
+                    </div>
+                    <ul class="nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                                <i class="nc-icon nc-chart-pie-35"></i>
+                                <p>About</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="nc-icon nc-circle-09"></i>
+                                <p>Home</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" asp-area="" asp-controller="Eventos" asp-action="Index">
+                                <i class="nc-icon nc-notes"></i>
+                                <p>Eventos</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="./typography.html">
+                                <i class="nc-icon nc-paper-2"></i>
+                                <p>Sexo Anal</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="./icons.html">
+                                <i class="nc-icon nc-atom"></i>
+                                <p>Icons</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="./maps.html">
+                                <i class="nc-icon nc-pin-3"></i>
+                                <p>Maps</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="./notifications.html">
+                                <i class="nc-icon nc-bell-55"></i>
+                                <p>Notifications</p>
+                            </a>
+                        </li>
+                        <li class="nav-item active active-pro">
+                            <a class="nav-link active">
+                                <i class="nc-icon nc-alien-33"></i>
+                                <p>Cerrar Sesión</p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
-                            <i class="nc-icon nc-chart-pie-35"></i>
-                            <p>About</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                            <i class="nc-icon nc-circle-09"></i>
-                            <p>Home</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" asp-area="" asp-controller="Eventos" asp-action="Index">
-                            <i class="nc-icon nc-notes"></i>
-                            <p>Eventos</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="./typography.html">
-                            <i class="nc-icon nc-paper-2"></i>
-                            <p>Sexo Anal</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="./icons.html">
-                            <i class="nc-icon nc-atom"></i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="./maps.html">
-                            <i class="nc-icon nc-pin-3"></i>
-                            <p>Maps</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="./notifications.html">
-                            <i class="nc-icon nc-bell-55"></i>
-                            <p>Notifications</p>
-                        </a>
-                    </li>
-                    <li class="nav-item active active-pro">
-                        <a class="nav-link active">
-                            <i class="nc-icon nc-alien-33"></i>
-                            <p>Cerrar Sesión</p>
-                        </a>
-                    </li>
-                </ul>
             </div>
-        </div>
-
+        }
 
         <partial name="_CookieConsentPartial" />
 
         <div class="main-panel">
 
-                    <nav>
-                        <div class="navbar-collapse collapse">
-                            <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-bar burger-lines"></span>
-                                <span class="navbar-toggler-bar burger-lines"></span>
-                                <span class="navbar-toggler-bar burger-lines"></span>
-                            </button>
-                            <ul class="nav navbar-nav">
+            <nav>
+                <div class="navbar-collapse collapse">
+                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <ul class="nav navbar-nav">
 
-                                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                                <li><a asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a></li>
-                            </ul>
-                        </div>
-                    </nav>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-area="" asp-controller="Eventos" asp-action="Index">Eventos</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="ChangeUser">@this.User.Identity.Name</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        }
+                    </ul>
 
-                    <div class="content">
+                </div>
+            </nav>
+
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                    <hr />
+                    <footer class="footer">
                         <div class="container-fluid">
-                            @RenderBody()
-                            <hr />
-                            <footer class="footer">
-                                <div class="container-fluid">
-                                    <nav>
-                                        <ul class="footer-menu">
-                                            <li>
-                                                <a href="#">
-                                                    Home
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    Company
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    Portfolio
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    Blog
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <p class="copyright text-center">
-                                            ©
-                                            <script>
-                                                document.write(new Date().getFullYear())
-                                            </script>
-                                            <a href="http://www.creative-tim.com">Make IT</a>, made with love for a better web
-                                        </p>
-                                    </nav>
-                                </div>
-                            </footer>
+                            <nav>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Company
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Portfolio
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Blog
+                                        </a>
+                                    </li>
+                                </ul>
+                                <p class="copyright text-center">
+                                    ©
+                                    <script>
+                                        document.write(new Date().getFullYear())
+                                    </script>
+                                    <a href="http://www.creative-tim.com">Make IT</a>, made with love for a better web
+                                </p>
+                            </nav>
                         </div>
-                    </div>
+                    </footer>
                 </div>
             </div>
+        </div>
+    </div>
 
 
             <environment include="Development">

@@ -25,6 +25,10 @@
         {
             await this.context.Database.EnsureCreatedAsync();
 
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("User");
+
+
             var user = await this.userHelper.GetUserByEmailAsync("juantorom@gmail.com");
             if (user == null)
             {
@@ -43,7 +47,15 @@
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
 
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+
             }
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            if (!isInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
             if (!this.context.Eventos.Any())
             {
                 this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime", "Es un evento muy chido","~/img1", user);

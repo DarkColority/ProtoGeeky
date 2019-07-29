@@ -9,7 +9,9 @@
     using Geeky.Web.Models;
     using System.IO;
     using System;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     public class EventosController : Controller
     {
         private readonly IEventRepository eventRepository;
@@ -44,7 +46,7 @@
             return View(evento);
         }
 
-        // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -77,7 +79,7 @@
 
                 var evento = this.ToEvent(view, path);
                 // TODO: Pending to change to: this.User.Identity.Name
-                evento.User = await this.userHelper.GetUserByEmailAsync("juantorom@gmail.com");
+                evento.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 await this.eventRepository.CreateAsync(evento);
                 return RedirectToAction(nameof(Index));
             }
@@ -98,7 +100,7 @@
             };
         }
 
-        // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,7 +132,7 @@
             };
         }
 
-        // POST: Products/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EventViewModel view)
@@ -158,8 +160,7 @@
 
 
                     var evento = this.ToEvent(view, path);
-                    // TODO: Pending to change to: this.User.Identity.Name
-                    evento.User = await this.userHelper.GetUserByEmailAsync("juantorom@gmail.com");
+                    evento.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     await this.eventRepository.UpdateAsync(evento);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -179,7 +180,7 @@
             return View(view);
         }
 
-        // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
