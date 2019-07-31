@@ -4,6 +4,7 @@ namespace Geeky.Web
     using data;
     using Data;
     using Data.Entities;
+    using Geeky.Web.Data.Repositories;
     using Helpers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,7 @@ namespace Geeky.Web
             services.AddTransient<SeedDb>();
 
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ITematicasRepository, TematicasRepository>();
 
             services.AddScoped<IUserHelper, UserHelper>();
 

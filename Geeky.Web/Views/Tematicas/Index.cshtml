@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Geeky.Web.Data.Entities.Evento>
+﻿@model IEnumerable<Geeky.Web.Data.Entities.Tematica>
 
 @{
     ViewData["Title"] = "Index";
@@ -27,7 +27,7 @@
                                 <img class="card-image-ev"src="@Url.Content(item.ImageURL)" alt="Image" />
                             
                                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Nombre)</h5>
-                                    <p class="card-text"> @Html.DisplayFor(modelItem => item.Descripcion)</p>
+                                    
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Ver más</a>
                                     </div>
                                 </div>

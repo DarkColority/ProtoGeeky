@@ -58,7 +58,7 @@
 
             if (!this.context.Eventos.Any())
             {
-                this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime", "Es un evento muy chido","~/img1", user);
+                this.AddEvent("Fiesta Freaky", "Parque de los deseos", "Anime", "Es un evento muy chido", "~/images/Events/full-screen-image-3", user);
 
                 await this.context.SaveChangesAsync();
             }

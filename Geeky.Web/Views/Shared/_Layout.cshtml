@@ -33,7 +33,7 @@
 
     <div class="wrapper">
         @if (this.User.IsInRole("Admin")) { 
-            <div class="sidebar" data-image="assets/img/sidebar-5.jpg" >
+            <div class="sidebar" data-image="~/img/sidebar-5.jpg" >
                 <!--
                 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -65,9 +65,9 @@
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link" href="./typography.html">
+                            <a class="nav-link" asp-area="" asp-controller="Tematicas" asp-action="Index">
                                 <i class="nc-icon nc-paper-2"></i>
-                                <p>Sexo Anal</p>
+                                <p>Tematicas</p>
                             </a>
                         </li>
                         <li>

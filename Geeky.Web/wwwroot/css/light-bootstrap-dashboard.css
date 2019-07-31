@@ -689,7 +689,7 @@ body>.navbar-collapse[data-color="purple"]:after {
 
 .main-panel {
     background: rgba(203, 203, 210, 0.15);
-    position: relative;
+    position: absolute;
     float: right;
     width: calc(100%);
     min-height: 100%;
@@ -710,6 +710,7 @@ body>.navbar-collapse[data-color="purple"]:after {
 
 .sidebar,
 .main-panel {
+    position:absolute;
     overflow: auto;
     max-height: 100%;
     height: 100%;
@@ -1031,6 +1032,10 @@ fieldset[disabled] .btn-primary.active {
 .btn-success {
     border-color: #87CB16;
     color: #87CB16;
+}
+.btn-card {
+    border-color: transparent;
+    color: transparent;
 }
 
 .btn-success:hover,
@@ -2781,21 +2786,58 @@ Copyright (c) 2015 Daniel Eden
     border-radius: 4px;
     background-color: #FFFFFF;
     margin-bottom: 30px;
+    opacity:0.9;
 }
 
-.card .card-image {
-    width: 100%;
+    .card .card-image {
+        width: 100%;
+        overflow: hidden;
+        height: 260px;
+        border-radius: 4px 4px 0 0;
+        position: relative;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        z-index: -1;
+    }
+
+    .card .card-image-ev {
+        width: 100%;
+        overflow: hidden;
+        height: 100%;
+        border-radius: 4px 4px 0 0;
+        position: absolute;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        z-index: -1;
+        left: 0px;
+        top: 0px;
+    }
+
+.card .card-image-ev .hover{
+    width: 110%;
     overflow: hidden;
-    height: 260px;
+    height: 110%;
     border-radius: 4px 4px 0 0;
     position: relative;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
+    z-index: -1;
+    opacity:0.4;
 }
 
 .card .card-image img {
     width: 100%;
+    height: 100%;
+}
+
+.img-container-dt {
+    width:100%;
+    height:100%;
+    max-width: 600px;
+    max-height: 600px;
 }
 
 .card .filter {
@@ -2990,6 +3032,7 @@ Copyright (c) 2015 Daniel Eden
 
 .card-user .card-image {
     height: 110px;
+    
 }
 
 .card-user .card-image-plain {
@@ -4810,6 +4853,7 @@ License - nucleoapp.com/license/
 
 .all-icons .font-icon-list .font-icon-detail i {
     font-size: 32px;
+    opacity:0.1;
 }
 
 /*------------------------

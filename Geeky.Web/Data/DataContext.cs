@@ -7,6 +7,8 @@
     public class DataContext : IdentityDbContext<User>
     {
         public DbSet<Evento> Eventos { get; set; }
+        public DbSet<Tematica> Tematica { get; set; }
+
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
